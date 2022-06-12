@@ -81,9 +81,11 @@ public class WishSim {
                     break;
                 case 5:
                     isFinished = true;
+                    //System.exit(0);
                     break;
                 default:
                    err = "Invalid input!";
+                   break;
                 }
             
         }
