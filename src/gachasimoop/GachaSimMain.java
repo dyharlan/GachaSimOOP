@@ -6,6 +6,7 @@ package gachasimoop;
 
 import gachasimoop.Frontends.*;
 import java.io.IOException;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -24,7 +25,7 @@ public class GachaSimMain {
             GachaPool.load4StarWpnPool("4starwpns");      
         }
         catch(IOException ioe){
-            System.err.println(ioe.toString());
+            JOptionPane.showMessageDialog(null, ioe.toString(), "Runtime Error",JOptionPane.ERROR_MESSAGE);
             System.exit(0);
         }
         if (args.length > 0){
@@ -49,8 +50,13 @@ public class GachaSimMain {
                     break;
             }
         }
-        else
-            callFX();
+        else{
+             WishSimSwing ws = new WishSimSwing();
+             ws.startFrontend();
+             
+        }
+            //callFX();
+           
     }
     
     public static void callFX(){
