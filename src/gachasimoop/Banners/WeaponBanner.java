@@ -12,51 +12,48 @@ import static gachasimoop.GachaPool.*;
  */
 public class WeaponBanner extends Banner {
     public String roll(){
-                //  _____    _____ _                 
-                // | ____|  / ____| |                
-                // | |__   | (___ | |_ __ _ _ __ ___ 
-                // |___ \   \___ \| __/ _` | '__/ __|
-                //  ___) |  ____) | || (_| | |  \__ \
-                // |____/  |_____/ \__\__,_|_|  |___/
-                int rarity = getRarity();
-                //You randomly got a 5* pull or if you reach 80 pulls, you have a 50/50 chance to get a rate up 5*.
-                if(rarity == 5 || super.getBannerRolls() == 79) 
-                {
-                    super.resetRolls(); //resets pity counter to 0
-                    super.add4StarPity(); // add 4* pity
-                    softPity = 0; //resets accumulated odds
-                    return _5_Star__Weapons(); //pray to God.
-                }
-                //  _  _      _____ _                 
-                // | || |    / ____| |                
-                // | || |_  | (___ | |_ __ _ _ __ ___ 
-                // |__   _|  \___ \| __/ _` | '__/ __|
-                //    | |    ____) | || (_| | |  \__ \
-                //    |_|   |_____/ \__\__,_|_|  |___/   
+        //  _____    _____ _                 
+        // | ____|  / ____| |                
+        // | |__   | (___ | |_ __ _ _ __ ___ 
+        // |___ \   \___ \| __/ _` | '__/ __|
+        //  ___) |  ____) | || (_| | |  \__ \
+        // |____/  |_____/ \__\__,_|_|  |___/
+        int rarity = getRarity();
+        //You randomly got a 5* pull or if you reach 80 pulls, you have a 50/50 chance to get a rate up 5*.
+        if(rarity == 5 || super.getBannerRolls() == 79){
+            super.resetRolls(); //resets pity counter to 0
+            super.add4StarPity(); // add 4* pity
+            softPity = 0; //resets accumulated odds
+            return _5_Star__Weapons(); //pray to God.
+        }
+        //  _  _      _____ _                 
+        // | || |    / ____| |                
+        // | || |_  | (___ | |_ __ _ _ __ ___ 
+        // |__   _|  \___ \| __/ _` | '__/ __|
+        //    | |    ____) | || (_| | |  \__ \
+        //    |_|   |_____/ \__\__,_|_|  |___/   
                 
-                //You obtain a 4*. You also reset the 4* counter
-                else if(rarity == 4 || ( (rarity == 3 || rarity == 4) && super.get4StarPity() >= 9) )
-                {
-                    super.reset4StarPity(); //resets 4* count
-                    super.addRolls(); //adds pity
-                    //you either get a rate up 4* weapon or char
-                    return (rngd.nextFloat() >= 0.5f)? _4_Star__Characters("nr") : _4_Star__Weapons();
-                }
+        //You obtain a 4*. You also reset the 4* counter
+        else if(rarity == 4 || ( (rarity == 3 || rarity == 4) && super.get4StarPity() >= 9) ){
+            super.reset4StarPity(); //resets 4* count
+            super.addRolls(); //adds pity
+            //you either get a rate up 4* weapon or char
+            return (rngd.nextFloat() >= 0.5f)? _4_Star__Characters("nr") : _4_Star__Weapons();
+        }
              
-                //  _______                         _     
-                // |__   __|                       | |    
-                //    | |     _ __    __ _   ___   | |__  
-                //    | |    | '__|  / _` | / __|  | '_ \ 
-                //    | |    | |    | (_| | \__ \  | | | |
-                //    |_|    |_|     \__,_| |___/  |_| |_|  
+        //  _______                         _     
+        // |__   __|                       | |    
+        //    | |     _ __    __ _   ___   | |__  
+        //    | |    | '__|  / _` | / __|  | '_ \ 
+        //    | |    | |    | (_| | \__ \  | | | |
+        //    |_|    |_|     \__,_| |___/  |_| |_|  
                 
-                //You stepped on dogshit.
-                else 
-                {
-                    super.add4StarPity();
-                    super.addRolls();
-                    return _3_Star__Weapons();
-                }
+        //You stepped on dogshit.
+        else {
+            super.add4StarPity();
+            super.addRolls();
+            return _3_Star__Weapons();
+        }
     }
     public int getRarity(){
         float chance;
