@@ -1,5 +1,5 @@
 build/*
 dist/*
-src/deprecated/*
+src-disabled/*
 nbproject/private/*
 test/*
