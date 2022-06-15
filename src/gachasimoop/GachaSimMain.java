@@ -32,16 +32,18 @@ public class GachaSimMain {
             StringBuilder help = new StringBuilder();
             help.append("\nThese are the valid arguments for GachaSim: \n");
             help.append("--cli or -c: Calls the cli frontend.\n");
-            help.append("--javafx or -fx: (Default) Calls the JavaFX-based frontend.\n");
+            //help.append("--javafx or -fx: (Default) Calls the JavaFX-based frontend.\n");
+            help.append("--swing or -sw: (Default) Calls the Swing frontend.\n");
             String one = args[0];
             switch (one.toLowerCase()){
                 case "--cli":
                 case "-c":
                     WishSim.cli();
                     break;
-                case "--javafx":
-                case "-fx":
-                    callFX();
+                case "--swing":
+                case "-sw":
+                    WishSimSwing ws = new WishSimSwing();
+                    ws.startFrontend();
                     break;
                 default:
                 case "-h":
@@ -59,14 +61,14 @@ public class GachaSimMain {
            
     }
     
-    public static void callFX(){
-        try{
-            WishSimFX.fx();
-        }
-        catch(Exception | Error ex){
-            System.err.println("JavaFX Libraries Not Found, falling back to cli...");
-            WishSim.cli();
-        } 
-    }
+//    public static void callFX(){
+//        try{
+//            WishSimFX.fx();
+//        }
+//        catch(Exception | Error ex){
+//            System.err.println("JavaFX Libraries Not Found, falling back to cli...");
+//            WishSim.cli();
+//        } 
+//    }
     
 }
