@@ -8,7 +8,7 @@ import static gachasimoop.GachaPool.*;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
-import javax.swing.event.*;
+import java.io.*;
 import javax.imageio.*;
 import java.io.IOException;
 /**
@@ -26,7 +26,7 @@ public class WishSimSwing implements ActionListener{
     //Character Banner 1
     private CharacterBanner cb;
     private JPanel cb1_panel,cb1_subpanel_1,cb1_subpanel_2,cb1_subpanel_3;
-    private JButton cb1_roll1, cb1_roll10, cb1_clearHistory;
+    private JButton cb1_roll1, cb1_roll10, cb1_clearHistory, cb1_saveRolls;
     private JLabel cb1_guaranteed1, cb1_guaranteed2,cb1rolls_1, cb1rolls_2, cb1_4star_rolls_1, cb1_4star_rolls_2;
     private JScrollPane cb1_jsp;
     private JTextArea cb1pulls;
@@ -56,7 +56,7 @@ public class WishSimSwing implements ActionListener{
     
     //Constructor
     public WishSimSwing(){
-        f = new JFrame("GachaSim beta4");
+        f = new JFrame("GachaSim beta6");
         jtp = new JTabbedPane(JTabbedPane.TOP);
         gbc = new GBCExtended();
         try{
@@ -90,6 +90,9 @@ public class WishSimSwing implements ActionListener{
         
         cb1_clearHistory = new JButton("Clear Wish History");
         cb1_clearHistory.addActionListener(l -> cb1pulls.setText(null));
+        
+        cb1_saveRolls = new JButton("Save rolls to file");
+        cb1_saveRolls.addActionListener(this);
         
         cb1_guaranteed1 = new JLabel("Guaranteed 5*?: ");
         cb1_guaranteed2 = new JLabel("false");
@@ -141,8 +144,9 @@ public class WishSimSwing implements ActionListener{
             gbc.insets = new Insets(2,2,2,2);
             cb1_subpanel_3.setLayout(new GridBagLayout());
             gbc.gbcAdd(cb1_subpanel_3, cb1_clearHistory,0,0);
+            gbc.gbcAdd(cb1_subpanel_3, cb1_saveRolls,0,1);
             cb1_jsp.setPreferredSize( new Dimension(480,480));
-            gbc.gbcAdd(cb1_subpanel_3, cb1_jsp,0,1);
+            gbc.gbcAdd(cb1_subpanel_3, cb1_jsp,0,2);
         
             
     }
@@ -430,12 +434,30 @@ public class WishSimSwing implements ActionListener{
             sbrolls_2.setText(String.valueOf(sb.getBannerRolls()));
             sb_4star_rolls_2.setText(String.valueOf(sb.get4StarPity()));
         }
+        else if(source == cb1_saveRolls){
+            String fileName = "cb1_rolls.txt";
+            File out = new File(fileName);
+            PrintWriter writer = null;
+            try{
+                writer = new PrintWriter(new FileWriter(out));
+                writer.println(cb1pulls.getText());
+                JOptionPane.showMessageDialog(null, "File successfully saved as " + fileName, "Update" , JOptionPane.INFORMATION_MESSAGE);
+            } 
+            catch(IOException ioe){
+                if(writer == null){
+                    JOptionPane.showMessageDialog(null, "An error has occured when doing the operation!: " + ioe.toString(), "Operation Failure" , JOptionPane.ERROR_MESSAGE);
+                }
+                JOptionPane.showMessageDialog(null, "An error has occured when doing the operation!: " + ioe.toString(), "Operation Failure" , JOptionPane.ERROR_MESSAGE);
+            }
+            finally{
+                writer.close();
+            }
+        }
     }
     
     //start method
     public void startFrontend(){
         f.add(jtp);
-       
         jtp.addTab("Character Banner 1", cb1_panel);
         jtp.addTab("Character Banner 2", cb2_panel);
         jtp.addTab("Weapon Banner", wb_panel);
