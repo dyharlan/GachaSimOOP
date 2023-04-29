@@ -153,8 +153,9 @@ public class GachaPool {
     */
     public static String _4_Star__Characters(String args)
     {
+        String[] special = {"Amber", "Lisa", "Kaeya"};
         if(args.toLowerCase() == "nr") 
-            return chars[1][rngd.nextInt(chars[1].length-3)];
+            return rngd.nextBoolean()? chars[1][rngd.nextInt(chars[1].length-3)] : special[rngd.nextInt(3)];
         else
             return "Error";
     }
